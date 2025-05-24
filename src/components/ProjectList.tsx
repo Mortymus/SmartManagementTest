@@ -1,13 +1,9 @@
 import { useState, useEffect} from 'react';
 import { getProjects } from '@taghub/api';
+import type { Project } from '@taghub/api';
 
 interface Props {
     onProjectSelection: (projectUuid: string) => void;
-}
-
-interface Project {
-    id: number;
-    uuid: string;
 }
 
 function ProjectList({ onProjectSelection }: Props) {
@@ -16,9 +12,9 @@ function ProjectList({ onProjectSelection }: Props) {
     const [selectedProjectUuid, setSelectedProjectUuid] = useState<string | undefined>(undefined);
 
     useEffect(() => {
-        async function fetchProjects(){
+        async function fetchProjects() {
             try {
-                const projects = await getProjects();
+                const projects = await getProjects();            
                 setProjectsData(projects);
                 if (projects.length > 0) {
                     onProjectSelection(projects[0].uuid);
@@ -45,7 +41,7 @@ function ProjectList({ onProjectSelection }: Props) {
                 {projectsData.length === 0 ? (
                     <option value="">No available projects</option>
                 ) : (
-                projectsData.map( (project) => (<option key={project.uuid} value={project.uuid}>Project {project.id}</option>)))}
+                projectsData.map((project) => (<option key={project.uuid} value={project.uuid}>Project {project.id}</option>)))}
             </select>
         </>
     );

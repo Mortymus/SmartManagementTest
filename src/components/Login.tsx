@@ -18,10 +18,9 @@ function Login({ onLogin }: Props) {
     async function handleLoginClick(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         setLoginClicked(true);
-        if (username != '' && password != '' && userConsumerKey != '') {
+        if (username && password && userConsumerKey) {
             try {
-                const credentials = await login(username, password, { consumerKey: userConsumerKey, init: true });
-                console.log(credentials.accessKey);
+                await login(username, password, { consumerKey: userConsumerKey, init: true });                
                 onLogin();
             }
             catch(error) {
@@ -42,7 +41,7 @@ function Login({ onLogin }: Props) {
         if (loginFailed) {
             return `Please enter a valid ${userInput}`;
         }
-        if (loginClicked && value === '') {
+        if (loginClicked && !value) {
             return `Please enter ${userInput}`;
         }
         else {

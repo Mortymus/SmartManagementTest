@@ -1,26 +1,57 @@
 import { useState  } from "react";
 import Login from './Login';
 import ProjectList from './ProjectList';
+import ItemList from './ItemList';
+import EventList from './EventList';
 
 
 function Start() {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [selectedProjectUuid, setSelectedProjectUuid] = useState<string>('');
+    const [selectedProjectUuid, setSelectedProjectUuid] = useState<string | null>(null);
+    const [selectedItemEpcString, setSelectedItemEpcString] = useState<string | null>(null);
+    const [showItemEvents, setShowItemEvents] = useState<boolean>(false);
 
     function handleLogin() {
         setIsLoggedIn(true);        
     }
 
-    function handleProjectSelection(projectUuid: string) {
+    function handleProjectSelection(projectUuid: string | null) {
         setSelectedProjectUuid(projectUuid);
+        setSelectedItemEpcString(null);
+        setShowItemEvents(false);
         console.log('Selected project: ', projectUuid);
+    }
+
+    function handleItemSelection(itemEpcString: string | null) {
+        setSelectedItemEpcString(itemEpcString);
+        setShowItemEvents(true);
+        console.log('project uuid: ', selectedProjectUuid);
+        console.log('Setting epcString for item selection = ', itemEpcString);
     }
         
     if (!isLoggedIn) {
         return <Login onLogin={handleLogin} />;
     }
     else {
-        return <ProjectList onProjectSelection={handleProjectSelection} />;
+        return (
+            <div className="app-div">
+                <ProjectList 
+                    onProjectSelection={handleProjectSelection} 
+                />
+                {!showItemEvents ? (
+                    <ItemList 
+                        projectUuid={selectedProjectUuid} 
+                        onItemSelection={handleItemSelection} 
+                    />
+                ) : (
+                    <EventList 
+                        projectUuid={selectedProjectUuid}
+                        itemEpcString={selectedItemEpcString}
+                    />
+                )
+                }
+            </div>
+    );
     }
 }
 

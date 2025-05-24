@@ -7,6 +7,13 @@ body {
   width: 100%;
 }
 
+.app-div {
+  margin: 1em auto;
+  width: 30em;
+  overflow: scroll;
+
+}
+
 .login-h2 {
   color: rgb(68, 153, 255);
   text-align: center;
