@@ -14,6 +14,14 @@ declare module '@taghub/api' {
         "-4": string;
     }
 
+    export interface ItemEvent {
+        id: number;
+        epc: string;
+        service: {
+            name: string;
+        };
+    }
+
     export function login(
         username: string, 
         password: string, 
@@ -23,4 +31,6 @@ declare module '@taghub/api' {
     export function getProjects(): Promise<Project[]>;
 
     export function getItems(projectUuid: string): Promise<Item[]>;
+
+    export function getEvents(projectUuid: string, itemEpcString: string): Promise<ItemEvent[]>;
 }

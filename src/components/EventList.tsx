@@ -1,13 +1,10 @@
 import { useState, useEffect} from 'react';
 import { getEvents } from '@taghub/api';
+import type { ItemEvent } from '@taghub/api';
 
 interface Props {
     projectUuid: string | null;
     itemEpcString: string | null;
-}
-
-interface ItemEvent {
-
 }
 
 function EventList({ projectUuid, itemEpcString }: Props) {
@@ -15,12 +12,16 @@ function EventList({ projectUuid, itemEpcString }: Props) {
 
     useEffect(() => {
         async function fetchEvents() {
-            try {
-                const events = await getEvents(projectUuid, itemEpcString);
-                setItemEventsData(events);
-                console.log(events);
-            } catch (error) {
-                console.error(error);
+            if (projectUuid && itemEpcString) {
+                try {
+                    const events = await getEvents(projectUuid, itemEpcString);
+                    setItemEventsData(events);
+                    console.log('Events: ', events);
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                throw new Error('Cannot fetch events because projectUuid or itemEpcString is null.');
             }
         }
         if (projectUuid && itemEpcString) {
@@ -45,8 +46,9 @@ function EventList({ projectUuid, itemEpcString }: Props) {
                         </tr>
                     ) : (
                         itemEventsData.map((itemEvent) => (                            
-                            <tr key={itemEvent.epc}>
+                            <tr key={`${itemEvent.epc}-${itemEvent.id}`}>
                                 <td>{itemEvent.id}</td>
+                                <td>{itemEvent.epc}</td>
                                 <td>{itemEvent.service.name}</td>
                             </tr>                          
                         ))

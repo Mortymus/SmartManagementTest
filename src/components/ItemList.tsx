@@ -49,7 +49,7 @@ function ItemList({ projectUuid, onItemSelection}: Props) {
                     ) : (
                         itemsData.map((item) => (
                             <tr 
-                                key={item.id}
+                                key={item.epcString}
                                 onClick={() => onItemSelection(item.epcString)}
                             >
                                 <td>{item.id}</td>

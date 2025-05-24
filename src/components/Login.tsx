@@ -43,8 +43,7 @@ function Login({ onLogin }: Props) {
         }
         if (loginClicked && !value) {
             return `Please enter ${userInput}`;
-        }
-        else {
+        } else {
             return userInput.charAt(0).toUpperCase() + userInput.slice(1);
         }
     }
