@@ -15,7 +15,7 @@
 }
 
 html {
-  font-size: 1.4rem;
+  font-size: 20px;
 }
 
 html, body, #root {
@@ -199,4 +199,27 @@ body {
 .table-td-value {
   min-width: 10rem;
   max-width: 10rem;
+}
+
+@media (max-width: 768px) {
+  
+  .login-div {
+    padding-top: 1rem;
+  }
+
+  .login-h2 {
+    margin: 0;
+  }
+
+  .login-btn {
+    width: 13rem;
+  }
+
+  .login-form {
+    width: 13rem;
+  }
+
+  .login-input {
+    font-size: 0.8rem;
+  }
 }
