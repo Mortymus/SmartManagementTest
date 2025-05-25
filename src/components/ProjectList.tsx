@@ -10,10 +10,12 @@ function ProjectList({ onProjectSelection }: Props) {
 
     const [projectsData, setProjectsData] = useState<Project[]>([]);
     const [selectedProjectUuid, setSelectedProjectUuid] = useState<string | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         async function fetchProjects() {
             try {
+                setIsLoading(true);
                 const projects = await getProjects();            
                 setProjectsData(projects);
                 if (projects.length > 0) {
@@ -25,6 +27,8 @@ function ProjectList({ onProjectSelection }: Props) {
                 console.log(projects[0].id);
             } catch (error) {
                 console.error("Error loading projects: ", error);
+            } finally {
+                setIsLoading(false);
             }
         }
         fetchProjects();
@@ -37,8 +41,15 @@ function ProjectList({ onProjectSelection }: Props) {
 
     return (
         <>
-            <select onChange={handleSelection} value={selectedProjectUuid} disabled={projectsData.length === 0}>
-                {projectsData.length === 0 ? (
+            <select 
+                onChange={handleSelection} 
+                value={selectedProjectUuid} 
+                disabled={projectsData.length === 0}
+                className="select-project"
+            >
+                {isLoading ? (
+                    <option value="">Loading projects...</option>
+                ) : projectsData.length === 0 ? (
                     <option value="">No available projects</option>
                 ) : (
                 projectsData.map((project) => (<option key={project.uuid} value={project.uuid}>Project {project.id}</option>)))}
