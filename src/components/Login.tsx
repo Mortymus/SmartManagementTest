@@ -6,9 +6,9 @@ interface Props {
 }
 
 function Login({ onLogin }: Props) {
-    const [username, setUsername] = useState<string>('careers@tag-hub.com');
-    const [password, setPassword] = useState<string>('oXDjVhS8UYqVix3E9AFi');
-    const [userConsumerKey, setUserConsumerKey] = useState<string>('f880711b92da47c28549d6cdc280d654');
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [userConsumerKey, setUserConsumerKey] = useState<string>('');
     const [loginClicked, setLoginClicked] = useState<boolean>(false);
     const [loginFailed, setLoginFailed] = useState<boolean>(false);
     const [usernameFocus, setUsernameFocus] = useState<boolean>(false);
@@ -62,10 +62,9 @@ function Login({ onLogin }: Props) {
                         onBlur={() => setUsernameFocus(false)}
                     />
                 </div>
-
                 <div className="login-input-div">
                     <input 
-                        type="text"
+                        type="password"
                         placeholder={placeholderFeedback('password', password, passwordFocus)}
                         className="login-input"
                         value={password ?? ''}
@@ -74,10 +73,9 @@ function Login({ onLogin }: Props) {
                         onBlur={() => setPasswordFocus(false)}
                     />
                 </div>
-
                 <div className="login-input-div">
                     <input 
-                        type="text"
+                        type="password"
                         placeholder={placeholderFeedback('Consumer key', userConsumerKey, userConsumerKeyFocus)}
                         className="login-input"
                         value={userConsumerKey ?? ''}
