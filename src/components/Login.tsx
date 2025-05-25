@@ -49,7 +49,7 @@ function Login({ onLogin }: Props) {
     }
     
     return (        
-        <>
+        <div className="login-div">
             <h2 className="login-h2">Login to Taghub</h2>
             <form className="login-form">                
                 <div className="login-input-div">
@@ -94,7 +94,7 @@ function Login({ onLogin }: Props) {
                     Login
                 </button>
             </form>           
-        </>
+        </div>
     );
 }
 
