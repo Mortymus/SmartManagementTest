@@ -18,7 +18,6 @@ function EventList({ projectUuid, itemEpcString }: Props) {
                     setIsLoading(true);
                     const events = await getEvents(projectUuid, itemEpcString);
                     setItemEventsData(events);
-                    console.log('Events: ', events);
                 } catch (error) {
                     console.error(error);
                 } finally {
@@ -34,13 +33,16 @@ function EventList({ projectUuid, itemEpcString }: Props) {
     }, [projectUuid, itemEpcString]);
 
     return (
-        <>
-            <table className="table table-events">
+        <div className="table-div">
+            <table className="table">
                 <thead>
                     <tr>
-                        <th className="table-th">Id</th>
-                        <th className="table-th">EPC</th>
-                        <th className="table-th">Service name</th>
+                        <th className="table-th table-td-id">Id</th>
+                        <th className="table-th table-td-epc">EPC</th>
+                        <th className="table-th  table-td-service-name">Service name</th>
+                        <th className="table-th table-td-user">User</th>
+                        <th className="table-th table-td-user-timestamp">User timestamp</th>
+                        <th className="table-th table-td-value">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,18 +57,23 @@ function EventList({ projectUuid, itemEpcString }: Props) {
                     ) : (
                         itemEventsData.map((itemEvent) => (                            
                             <tr key={`${itemEvent.epc}-${itemEvent.id}`}>
-                                <td className="table-td">{itemEvent.id}</td>
-                                <td className="table-td">{itemEvent.epc}</td>
-                                <td className="table-td">{itemEvent.service.name}</td>
+                                <td className="table-td table-td-id">{itemEvent.id}</td>
+                                <td className="table-td table-td-epc">{itemEvent.epc}</td>
+                                <td className="table-td table-td-service-name">{itemEvent.service.name}</td>
+                                <td className="table-td table-td-user">{itemEvent.user}</td>
+                                <td className="table-td table-td-user-timestamp">{itemEvent.userTimestamp}</td>
+                                {!Array.isArray(itemEvent.value) && typeof itemEvent.value != 'object' ? (
+                                    <td className="table-td table-td-value">{itemEvent.value}</td>
+                                ) : (
+                                    <td className="table-td table-td-value">N/A</td>
+                                )}
                             </tr>                          
                         ))
                     )}
                 </tbody>                
             </table>   
-        </>
+        </div>
     );
-
-
 }
 
 export default EventList;

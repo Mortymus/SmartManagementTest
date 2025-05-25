@@ -24,7 +24,6 @@ function Login({ onLogin }: Props) {
                 onLogin();
             }
             catch(error) {
-                console.log("Failing");
                 setLoginFailed(true);
                 setUsername('');
                 setPassword('');
@@ -88,7 +87,7 @@ function Login({ onLogin }: Props) {
                     />
                 </div>              
                 <button 
-                    className="login-button"
+                    className="login-btn"
                     onClick={handleLoginClick}
                 >
                     Login

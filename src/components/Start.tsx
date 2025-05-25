@@ -20,29 +20,30 @@ function Start() {
         setSelectedProjectUuid(projectUuid);
         setSelectedItemEpcString(null);
         setShowItemEvents(false);
-        console.log('Selected project: ', projectUuid);
     }
 
     function handleItemSelection(itemEpcString: string | null) {
         setSelectedItemEpcString(itemEpcString);
         setShowItemEvents(true);
-        console.log('project uuid: ', selectedProjectUuid);
-        console.log('Setting epcString for item selection = ', itemEpcString);
     }
 
     function handleItemsButtonClick() {
         setShowItemEvents(false);
+    }
+
+    function handleLogOutButtonClick() {
+        setIsLoggedIn(false);
     }
         
     if (!isLoggedIn) {
         return <Login onLogin={handleLogin} />;
     } else {
         return (
-            <>
-              
+            <>              
                     <Header 
                         showEvents={showItemEvents}
-                        onItemsButtonClick={handleItemsButtonClick} 
+                        onItemsButtonClick={handleItemsButtonClick}
+                        onLogOutButtonClick={handleLogOutButtonClick} 
                     />
                     <ProjectList 
                         onProjectSelection={handleProjectSelection} 
@@ -58,8 +59,7 @@ function Start() {
                             itemEpcString={selectedItemEpcString}
                         />
                     )
-                    }
-            
+                    }            
             </>
         );}
 }

@@ -20,6 +20,9 @@ declare module '@taghub/api' {
         service: {
             name: string;
         };
+        user: string;
+        userTimestamp: string;
+        value: any;
     }
 
     export function login(

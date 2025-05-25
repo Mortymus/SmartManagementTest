@@ -21,10 +21,7 @@ function ProjectList({ onProjectSelection }: Props) {
                 if (projects.length > 0) {
                     onProjectSelection(projects[0].uuid);
                     setSelectedProjectUuid(projects[0].uuid);
-                }
-                console.log(projects);
-                console.log(projects[0]);
-                console.log(projects[0].id);
+                }             
             } catch (error) {
                 console.error("Error loading projects: ", error);
             } finally {

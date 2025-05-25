@@ -19,8 +19,6 @@ function ItemList({ projectUuid, onItemSelection}: Props) {
                     setIsLoading(true);
                     const items = await getItems(projectUuid);
                     setItemsData(items);
-                    console.log('Items coming: ', items);
-                    console.log('Checking "-4" type: ', typeof(items[0]["-4"]))
                 } catch (error) {
                     console.error(error);
                 } finally {
@@ -36,13 +34,13 @@ function ItemList({ projectUuid, onItemSelection}: Props) {
     }, [projectUuid]);
 
     return (
-        <>
-            <table className="table table-items">
+        <div className="table-div">
+            <table className="table">
                 <thead>
                     <tr>
-                        <th className="table-th">Id</th>
-                        <th className="table-th">EPC</th>
-                        <th className="table-th">Date</th>
+                        <th className="table-th table-td-id">Id</th>
+                        <th className="table-th table-td-epc">EPC</th>
+                        <th className="table-th table-td-date">Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,8 +51,7 @@ function ItemList({ projectUuid, onItemSelection}: Props) {
                         </tr>
                     ) : itemsData.length === 0 ? (
                         <tr>
-                            <td 
-                                className="table-td" colSpan={3}>No available items</td>
+                            <td className="table-td" colSpan={3}>No available items</td>
                         </tr>
                     ) : (
                         itemsData.map((item) => (
@@ -62,15 +59,15 @@ function ItemList({ projectUuid, onItemSelection}: Props) {
                                 key={item.epcString}
                                 onClick={() => onItemSelection(item.epcString)}
                             >
-                                <td className="table-td table-td-items">{item.id}</td>
-                                <td className="table-td table-td-items">{item.epcString}</td>
-                                <td className="table-td table-td-items">{new Date(item["-4"]).toLocaleString()}</td>
+                                <td className="table-td table-td-items table-td-id">{item.id}</td>
+                                <td className="table-td table-td-items table-td-epc">{item.epcString}</td>
+                                <td className="table-td table-td-items table-td-date">{new Date(item["-4"]).toLocaleString()}</td>
                             </tr>
                         ))
                     )}
                 </tbody>                
             </table>   
-        </>
+        </div>
     );
 }
 
